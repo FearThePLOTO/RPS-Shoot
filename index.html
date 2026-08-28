@@ -3,10 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors Game</title>
+    <title>RPS SHOOT - First to 5</title>
     <script defer src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark"><span>PL2</span></div>
+            <div class="brand-text">RPS <em>//</em> SHOOT</div>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <section class="scoreboard" aria-label="Scoreboard">
+            <div class="side left">
+                <div class="avatar">#</div>
+                <div>
+                    <span class="label">YOU</span>
+                    <strong>PLAYER</strong>
+                </div>
+                <div class="big" id="humanScore">0</div>
+            </div>
+
+            <div class="colon">:</div>
+
+            <div class="side right">
+                <div class="big" id="computerScore">0</div>
+                <div style="text-align:right;">
+                    <span class="label">CPU</span>
+                    <strong>COMPUTER</strong>
+                </div>
+                <div class="avatar">👾</div>
+            </div>
+        </section>
+
+        <div class="winner-banner" id="winnerBanner" role="status" aria-live="polite">
+            <h2 id="winnerTitle">YOU WIN THE MATCH!</h2>
+            <p id="winnerSub">DOMINATION - 5 POINTS SECURED</p>
+        </div>
+
+        <section class="arena">
+            <div class="arena-head">
+                <span>ROUND <span id="roundNum">1</span> / -</span>
+                <span id="roundHint">CHOOSE YOUR WEAPON BELOW</span>
+            </div>
+
+            <div class="battle">
+                <div class="pick you" id="playerPick">
+                    <span class="mini-label">YOU</span>
+                    <div class="icon" id="playerIcon">-</div>
+                    <div class="choice-text" id="playerChoiceText">WAITING</div>
+                </div>
+
+                <div class="vs"><span>VS</span></div>
+
+                <div class="pick cpu" id="cpuPick">
+                    <span class="mini-label">CPU</span>
+                    <div class="icon" id="cpuIcon">-</div>
+                    <div class="choice-text" id="cpuChoiceText">WAITING</div>
+                </div>
+            </div>
+
+            <div class="result-wrap">
+                <div id="result">MAKE YOUR MOVE</div>
+                <div id="resultText">Rock smashes Scissors • Scissors cuts Paper • Paper wraps Rock</div>
+            </div>
+        </section>
+
+        <div class="controls">
+            <button class="move-btn" id="rock" data-choice="rock" aria-label="Choose rock">
+                <span class="btn-icon">✊</span>
+                <span class="btn-name">ROCK</span>
+                <span class="btn-sub">BEATS SCISSORS</span>
+            </button>
+            <button class="move-btn" id="paper" data-choice="paper" aria-label="Choose paper">
+                <span class="btn-icon">✋</span>
+                <span class="btn-name">PAPER</span>
+                <span class="btn-sub">BEATS ROCK</span>
+            </button>
+            <button class="move-btn" id="scissors" data-choice="scissors" aria-label="Choose scissors">
+                <span class="btn-icon">✌️</span>
+                <span class="btn-name">SCISSORS</span>
+                <span class="btn-sub">BEATS PAPER</span>
+            </button>
+        </div>
+
+        <div class="actions">
+            <button id="resetBtn">↻ PLAY AGAIN</button>
+        </div>
+
+        <div id="results" style="display:none;"></div>
+    </div>
+
+    <footer>
+        RPS-SHOOT @ 2026 - BUILT FOR THE ODIN PROJECT • FearThePLOTO
+    </footer>
 </body>
 </html>

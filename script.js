@@ -1,73 +1,199 @@
-
 /**
- * Function that uses MATH.random to generate a num from 1 -> 3 and returns rock, paper, or scissors.
+ * RPS Shoot - Redline Edition
+ * First to 5 wins. UI-driven.
  */
-function getComputerChoice(){
-    let rnd = Math.floor(Math.random() * 3);
-    return rnd == 1 ? "rock" : rnd == 2 ? "paper" : "scissors";
+
+function getComputerChoice() {
+    const rnd = Math.floor(Math.random() * 3);
+    return rnd === 1 ? "rock" : rnd === 2 ? "paper" : "scissors";
 }
 
-/**
- * Function to get the user input and convert it to the capitalized form for uniting the inputs.
- */ 
-function getHumanChoice(){
-    let userInput
-    while(true){
-        try {
-            userInput = prompt("Enter Your Choice {Rock, Paper, or Scissors}")
-            userInput = userInput.toLowerCase();
-            if(userInput != "rock" && userInput != "paper" && userInput != "scissors"){
-                throw TypeError;
-            }
-            break;
-        } catch (TypeError) {
-            alert("Invalid Input! Try Again");
-        }
-    }
-    return userInput;
+const icons = {
+    rock: "✊",
+    paper: "✋",
+    scissors: "✌️",
+    waiting: "-"
+};
+
+let humanScore = 0;
+let computerScore = 0;
+let round = 1;
+let gameOver = false;
+
+const humanScoreEl = document.getElementById("humanScore");
+const computerScoreEl = document.getElementById("computerScore");
+const resultEl = document.getElementById("result");
+const resultTextEl = document.getElementById("resultText");
+const playerIconEl = document.getElementById("playerIcon");
+const cpuIconEl = document.getElementById("cpuIcon");
+const playerChoiceTextEl = document.getElementById("playerChoiceText");
+const cpuChoiceTextEl = document.getElementById("cpuChoiceText");
+const playerPickEl = document.getElementById("playerPick");
+const cpuPickEl = document.getElementById("cpuPick");
+const roundNumEl = document.getElementById("roundNum");
+const roundHintEl = document.getElementById("roundHint");
+const winnerBanner = document.getElementById("winnerBanner");
+const winnerTitle = document.getElementById("winnerTitle");
+const winnerSub = document.getElementById("winnerSub");
+const resetBtn = document.getElementById("resetBtn");
+const buttons = document.querySelectorAll(".move-btn");
+
+// required div for displaying results (fulfills assignment spec)
+const resultsDiv = document.getElementById("results");
+
+function updateScoreboard() {
+    humanScoreEl.textContent = humanScore;
+    computerScoreEl.textContent = computerScore;
+    roundNumEl.textContent = gameOver ? "-" : round;
+
+    // also keep results div in sync (assignment requirement: running score)
+    resultsDiv.textContent = `Score - You: ${humanScore} | CPU: ${computerScore}`;
 }
-/**
- * Function that plays a rounds of RPC shoot by getting a human and computer choice and saying who won. 
- */
-function playRound(playerChoice, computerChoice){
-    if(playerChoice == computerChoice){
-        alert(`Your choice is '${playerChoice}' and the Computer choice was '${computerChoice}'.
-             Its a Tie!`);
-        return 0;
-    } else if((playerChoice == "paper" && computerChoice == "rock") || (playerChoice == "scissors" && computerChoice == "paper") || (playerChoice == "rock" && computerChoice == "scissors")){
-        alert(`Your choice is '${playerChoice}' and the Computer choice was '${computerChoice}'.
-             You have won this round!`);
-        return 1;
+
+function setChoices(playerChoice, computerChoice) {
+    playerIconEl.textContent = icons[playerChoice];
+    cpuIconEl.textContent = icons[computerChoice];
+    playerChoiceTextEl.textContent = playerChoice;
+    cpuChoiceTextEl.textContent = computerChoice;
+
+    // pop animation
+    playerPickEl.classList.remove("reveal");
+    cpuPickEl.classList.remove("reveal");
+    void playerPickEl.offsetWidth; // reflow
+    playerPickEl.classList.add("reveal");
+    cpuPickEl.classList.add("reveal");
+}
+
+function announceWinner() {
+    gameOver = true;
+    buttons.forEach(b => b.disabled = true);
+    resetBtn.classList.add("show");
+    winnerBanner.classList.add("show");
+    roundHintEl.textContent = "MATCH OVER";
+
+    if (humanScore >= 5) {
+        winnerTitle.textContent = "YOU WIN THE MATCH!";
+        winnerSub.textContent = `FINAL ${humanScore} - ${computerScore} • YOU DOMINATED`;
+        resultEl.textContent = "YOU TOOK IT 5 POINTS FIRST";
+        resultEl.className = "win";
+        resultTextEl.textContent = "Clean sweep. The machine couldn't keep up. Hit play again if you want more.";
     } else {
-        alert(`Your choice is '${playerChoice}' and the Computer choice was '${computerChoice}'.
-             The Computer have won this round!`);
-        return 2;
+        winnerTitle.textContent = "CPU WINS THE MATCH";
+        winnerSub.textContent = `FINAL ${computerScore} - ${humanScore} • MACHINE VICTORY`;
+        resultEl.textContent = "COMPUTER TAKES THE MATCH";
+        resultEl.className = "lose";
+        resultTextEl.textContent = "Don't sweat it - the CPU got lucky. Reset and run it back.";
     }
+
+    // update results div with final announcement
+    const announcement = document.createElement("p");
+    announcement.textContent = winnerTitle.textContent + " - " + winnerSub.textContent;
+    resultsDiv.appendChild(announcement);
 }
 
+function playRound(playerChoice) {
+    if (gameOver) return;
 
-/**
- * Function that plays 5 rounds of RPC shoot and indicate who is the final winner.
-*/
-function playGame(turns = 5){
-    let humanWins = 0, computerWins = 0;
-    while(turns--){
-        let plr = getHumanChoice(), comp = getComputerChoice();
-        let game = playRound(plr, comp);
-        if(game == 1) humanWins++;
-        else if(game == 2) computerWins++;
-        else turns++;
+    const computerChoice = getComputerChoice();
+    setChoices(playerChoice, computerChoice);
 
-        alert(`The Score is
-            You : ${humanWins}
-            Computer : ${computerWins}
-            `)
+    let outcome; // 0 tie, 1 player, 2 cpu
+    let message = "";
+    let detail = "";
+
+    if (playerChoice === computerChoice) {
+        outcome = 0;
+        message = "IT'S A TIE";
+        detail = `Both threw ${playerChoice} - no points. Go again.`;
+        resultEl.className = "tie";
+        // subtle shake on tie
+        playerPickEl.classList.add("shake");
+        cpuPickEl.classList.add("shake");
+        setTimeout(() => {
+            playerPickEl.classList.remove("shake");
+            cpuPickEl.classList.remove("shake");
+        }, 320);
+    } else if (
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper") ||
+        (playerChoice === "rock" && computerChoice === "scissors")
+    ) {
+        outcome = 1;
+        humanScore++;
+        message = "YOU WIN THIS ROUND";
+        detail = `${playerChoice} beats ${computerChoice} - point for you.`;
+        resultEl.className = "win";
+    } else {
+        outcome = 2;
+        computerScore++;
+        message = "CPU TAKES THE ROUND";
+        detail = `${computerChoice} beats ${playerChoice} - point for CPU.`;
+        resultEl.className = "lose";
     }
-    if(computerWins == humanWins) alert("Its A Tie!");
-    else alert(`The Final winner is ${computerWins > humanWins ? "The Computer" : "YOU"}!`)
+
+    resultEl.textContent = message;
+    resultTextEl.textContent = detail;
+    updateScoreboard();
+
+    // keep results div updated (DOM method instead of console.log per spec)
+    // we keep a simple log line for every round as well
+    const line = document.createElement("div");
+    line.textContent = `Round ${round}: you=${playerChoice}, cpu=${computerChoice} → ${message}`;
+    resultsDiv.appendChild(line);
+    // keep only last 6 lines visible in hidden log to avoid bloat
+    while (resultsDiv.children.length > 7) resultsDiv.removeChild(resultsDiv.firstChild);
+
+    // check win condition - first to 5
+    if (humanScore >= 5 || computerScore >= 5) {
+        announceWinner();
+    } else {
+        if (outcome !== 0) round++;
+        roundHintEl.textContent = outcome === 0 ? "TIE - REPLAY ROUND" : `NEXT ROUND`;
+        updateScoreboard();
+    }
+
+    return outcome;
 }
 
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    round = 1;
+    gameOver = false;
+    buttons.forEach(b => b.disabled = false);
+    resetBtn.classList.remove("show");
+    winnerBanner.classList.remove("show");
+    playerIconEl.textContent = icons.waiting;
+    cpuIconEl.textContent = icons.waiting;
+    playerChoiceTextEl.textContent = "WAITING";
+    cpuChoiceTextEl.textContent = "WAITING";
+    playerPickEl.classList.remove("reveal", "shake");
+    cpuPickEl.classList.remove("reveal", "shake");
+    resultEl.textContent = "MAKE YOUR MOVE";
+    resultEl.className = "";
+    resultTextEl.textContent = "Rock smashes Scissors • Scissors cuts Paper • Paper wraps Rock";
+    roundHintEl.textContent = "CHOOSE YOUR WEAPON BELOW";
+    resultsDiv.innerHTML = "";
+    updateScoreboard();
+}
 
-playGame();
+// event listeners for the three buttons (as required)
+document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
 
+resetBtn.addEventListener("click", resetGame);
 
+// also allow data-choice delegation (keeps code extensible)
+buttons.forEach(btn => {
+    // already handled above, but ensure keyboard accessibility
+    btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            playRound(btn.dataset.choice);
+        }
+    });
+});
+
+// init
+updateScoreboard();
