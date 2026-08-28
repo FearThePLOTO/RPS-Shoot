@@ -1,0 +1,66 @@
+<svg width="800" height="220" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<title id="title">RPS SAMURAI banner</title>
+<desc id="desc">Hand-made ink washi banner for RPS SAMURAI - ronin vs shogun</desc>
+
+<!-- paper background -->
+<rect width="800" height="220" fill="#f7f1dd"/>
+<g opacity="0.30">
+  <circle cx="22" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="46" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="70" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="94" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="118" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="142" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="166" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="190" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="214" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="238" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="262" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="286" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="310" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="334" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="358" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="382" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="406" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="430" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="454" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="478" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="502" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="526" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="550" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="574" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="598" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="622" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="646" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="670" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="694" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="718" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="742" cy="22" r="1.3" fill="#d8c9a0"/><circle cx="766" cy="22" r="1.3" fill="#d8c9a0"/>
+</g>
+
+<!-- topbar shadow -->
+<rect x="26" y="28" width="752" height="90" fill="#1e1c1a" opacity="0.95"/>
+
+<!-- ink topbar -->
+<rect x="20" y="22" width="752" height="90" fill="#1e1c1a" stroke="#1e1c1a" stroke-width="3"/>
+<rect x="20" y="108" width="752" height="4" fill="#b5231a"/>
+<rect x="20" y="22" width="752" height="3" fill="white" opacity="0.05"/>
+
+<!-- crest -->
+<g transform="translate(48,40)">
+  <rect width="44" height="44" fill="#b5231a" stroke="#f7f1dd" stroke-width="1.8" transform="rotate(-1 22 22)"/>
+  <rect width="44" height="44" fill="none" stroke="#8f1c14" stroke-width="1" transform="rotate(-1 22 22)"/>
+  <text x="22" y="29" text-anchor="middle" font-family="'Noto Serif JP', serif" font-size="21" font-weight="900" fill="white" transform="rotate(-1 22 22)">剣</text>
+</g>
+
+<!-- brand text - more spacing -->
+<g font-family="'Noto Serif JP', serif">
+  <text x="108" y="56" font-size="10" font-weight="900" fill="#c9a86a" letter-spacing="1.8">侍の決闘</text>
+  <text x="108" y="80" font-size="21" font-weight="900" fill="#f7f1dd" letter-spacing="1.4">RPS SAMURAI</text>
+</g>
+
+<!-- right side - FearThePLOTO -->
+<text x="760" y="66" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#c9a86a" letter-spacing="1.2">FearThePLOTO</text>
+
+<!-- tatami strip - lower with more space -->
+<g opacity="0.92">
+  <rect x="20" y="130" width="752" height="8" fill="#d8c9a7" stroke="#1e1c1a" stroke-width="1"/>
+  <g stroke="#b8a684" stroke-width="0.9" opacity="0.9">
+    <line x1="48" y1="130" x2="48" y2="138"/><line x1="88" y1="130" x2="88" y2="138"/><line x1="128" y1="130" x2="128" y2="138"/><line x1="168" y1="130" x2="168" y2="138"/><line x1="208" y1="130" x2="208" y2="138"/><line x1="248" y1="130" x2="248" y2="138"/><line x1="288" y1="130" x2="288" y2="138"/><line x1="328" y1="130" x2="328" y2="138"/><line x1="368" y1="130" x2="368" y2="138"/><line x1="408" y1="130" x2="408" y2="138"/><line x1="448" y1="130" x2="448" y2="138"/><line x1="488" y1="130" x2="488" y2="138"/><line x1="528" y1="130" x2="528" y2="138"/><line x1="568" y1="130" x2="568" y2="138"/><line x1="608" y1="130" x2="608" y2="138"/><line x1="648" y1="130" x2="648" y2="138"/><line x1="688" y1="130" x2="688" y2="138"/><line x1="728" y1="130" x2="728" y2="138"/>
+  </g>
+</g>
+
+<!-- middle preview - spaced apart, no overlap -->
+<g transform="translate(220,152)">
+  <!-- ronin -->
+  <rect width="32" height="32" fill="#f7f1dd" stroke="#1e1c1a" stroke-width="1.5" transform="rotate(-0.8 16 16)"/>
+  <text x="16" y="22" text-anchor="middle" font-family="'Noto Serif JP', serif" font-size="15" font-weight="900" fill="#1e1c1a" transform="rotate(-0.8 16 16)">侍</text>
+  <text x="38" y="13" font-family="'JetBrains Mono', monospace" font-size="6" fill="#7a7a7a" letter-spacing="0.8">RONIN</text>
+  <text x="38" y="24" font-family="'Noto Serif JP', serif" font-size="7" font-weight="900" fill="#1e1c1a">VS</text>
+  <!-- shogun -->
+  <g transform="translate(64,0)">
+    <rect width="32" height="32" fill="#b5231a" stroke="#1e1c1a" stroke-width="1.5" transform="rotate(0.8 16 16)"/>
+    <text x="16" y="22" text-anchor="middle" font-family="'Noto Serif JP', serif" font-size="15" font-weight="900" fill="white" transform="rotate(0.8 16 16)">将</text>
+  </g>
+  <text x="110" y="14" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#8a8a8a" letter-spacing="1">石  紙  刀</text>
+  <text x="110" y="25" font-family="'Noto Serif JP', serif" font-size="6.5" fill="#5a5a5a" letter-spacing="0.7">STONE  SCROLL  BLADE</text>
+</g>
+
+<g transform="translate(420,152)">
+  <text x="0" y="12" font-family="'JetBrains Mono', monospace" font-size="6" fill="#9a9a9a" letter-spacing="1">FIRST TO 5 WINS</text>
+  <text x="0" y="24" font-family="'Noto Serif JP', serif" font-size="7" fill="#6b6b6b">RONIN vs SHOGUN</text>
+</g>
+
+<!-- footer - extra space from tatami/preview -->
+<text x="400" y="200" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" fill="#8a8a8a" letter-spacing="1">RPS SAMURAI  -  2026  -  FOR THE ODIN PROJECT</text>
+</svg>

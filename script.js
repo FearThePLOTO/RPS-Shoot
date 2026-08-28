@@ -9,9 +9,9 @@ function getComputerChoice() {
 }
 
 const icons = {
-    rock: "✊",
-    paper: "✋",
-    scissors: "✌️",
+    rock: "石",
+    paper: "紙",
+    scissors: "刀",
     waiting: "-"
 };
 
