@@ -3,104 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPS SHOOT - First to 5</title>
+    <title>RPS SAMURAI - First to 5</title>
     <script defer src="script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;900&family=Shippori+Mincho:wght@600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- paper texture wash -->
+    <div class="washi-bg" aria-hidden="true"></div>
+
     <header class="topbar">
         <div class="brand">
-            <div class="brand-mark"><span>PL2</span></div>
-            <div class="brand-text">RPS <em>//</em> SHOOT</div>
+            <div class="crest"><span>剣</span></div>
+            <div class="brand-text">
+                <span class="jp">侍の決闘</span>
+                <span class="en">RPS SAMURAI</span>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <span>FearThePLOTO</span>
         </div>
     </header>
 
     <div class="wrap">
         <section class="scoreboard" aria-label="Scoreboard">
             <div class="side left">
-                <div class="avatar">#</div>
+                <div class="avatar ronin">侍</div>
                 <div>
-                    <span class="label">YOU</span>
-                    <strong>PLAYER</strong>
+                    <span class="label">YOU - RONIN</span>
+                    <strong>RONIN</strong>
                 </div>
                 <div class="big" id="humanScore">0</div>
             </div>
 
-            <div class="colon">:</div>
+            <div class="colon">
+                <span class="enso"></span>
+                <span class="colon-text">対</span>
+            </div>
 
             <div class="side right">
                 <div class="big" id="computerScore">0</div>
                 <div style="text-align:right;">
-                    <span class="label">CPU</span>
-                    <strong>COMPUTER</strong>
+                    <span class="label">SHOGUN - AI</span>
+                    <strong>SHOGUN</strong>
                 </div>
-                <div class="avatar">👾</div>
+                <div class="avatar shogun">将</div>
             </div>
         </section>
 
         <div class="winner-banner" id="winnerBanner" role="status" aria-live="polite">
-            <h2 id="winnerTitle">YOU WIN THE MATCH!</h2>
-            <p id="winnerSub">DOMINATION - 5 POINTS SECURED</p>
+            <h2 id="winnerTitle">YOU WIN THE DUEL!</h2>
+            <p id="winnerSub">HONOR SECURED - 5 VICTORIES</p>
         </div>
 
         <section class="arena">
             <div class="arena-head">
-                <span>ROUND <span id="roundNum">1</span> / -</span>
-                <span id="roundHint">CHOOSE YOUR WEAPON BELOW</span>
+                <span class="round-label">ROUND <span id="roundNum">1</span> / -</span>
+                <span class="brush-line"></span>
+                <span id="roundHint">CHOOSE YOUR WEAPON</span>
             </div>
 
             <div class="battle">
                 <div class="pick you" id="playerPick">
-                    <span class="mini-label">YOU</span>
+                    <span class="mini-label">RONIN</span>
                     <div class="icon" id="playerIcon">-</div>
                     <div class="choice-text" id="playerChoiceText">WAITING</div>
                 </div>
 
-                <div class="vs"><span>VS</span></div>
+                <div class="vs"><span>VS</span><i>対</i></div>
 
                 <div class="pick cpu" id="cpuPick">
-                    <span class="mini-label">CPU</span>
+                    <span class="mini-label">SHOGUN</span>
                     <div class="icon" id="cpuIcon">-</div>
                     <div class="choice-text" id="cpuChoiceText">WAITING</div>
                 </div>
             </div>
 
+            <div class="tatami-line"></div>
+
             <div class="result-wrap">
                 <div id="result">MAKE YOUR MOVE</div>
-                <div id="resultText">Rock smashes Scissors • Scissors cuts Paper • Paper wraps Rock</div>
+                <div id="resultText">Stone breaks Blade - Blade cuts Scroll - Scroll wraps Stone</div>
             </div>
         </section>
 
         <div class="controls">
-            <button class="move-btn" id="rock" data-choice="rock" aria-label="Choose rock">
-                <span class="btn-icon">✊</span>
-                <span class="btn-name">ROCK</span>
-                <span class="btn-sub">BEATS SCISSORS</span>
+            <button class="move-btn" id="rock" data-choice="rock" aria-label="Choose stone">
+                <span class="btn-kanji">石</span>
+                <span class="btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 40 32" width="36" height="28"><path d="M11 23 C6 20 5.5 13 11 9 C15 4.5 23 3.5 29.5 7.5 C35 11.5 36.5 19 31 24 C25.5 28.5 15.5 28 11 23 Z" fill="#c2b280" stroke="#1e1c1a" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 13.5 C16 12.5 21 12.8 25 14.5" stroke="#1e1c1a" stroke-width="1" opacity="0.45" fill="none" stroke-linecap="round"/><path d="M13.5 19.5 C18 18.5 23 18.8 27 20.5" stroke="#1e1c1a" stroke-width="0.9" opacity="0.35" fill="none" stroke-linecap="round"/></svg>
+                </span>
+                <span class="btn-name">IWA - STONE</span>
+                <span class="btn-sub">BEATS BLADE</span>
             </button>
-            <button class="move-btn" id="paper" data-choice="paper" aria-label="Choose paper">
-                <span class="btn-icon">✋</span>
-                <span class="btn-name">PAPER</span>
-                <span class="btn-sub">BEATS ROCK</span>
+            <button class="move-btn" id="paper" data-choice="paper" aria-label="Choose scroll">
+                <span class="btn-kanji">紙</span>
+                <span class="btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 40 28" width="36" height="26"><rect x="6" y="7" width="28" height="14" fill="#fffaf0" stroke="#1e1c1a" stroke-width="1.6"/><rect x="4" y="5" width="5" height="18" rx="2.6" fill="#d8c9a7" stroke="#1e1c1a" stroke-width="1.3"/><rect x="31" y="5" width="5" height="18" rx="2.6" fill="#d8c9a7" stroke="#1e1c1a" stroke-width="1.3"/><line x1="10" y1="11" x2="30" y2="11" stroke="#b8a684" stroke-width="0.9" opacity="0.7"/><line x1="10" y1="15" x2="30" y2="15" stroke="#b8a684" stroke-width="0.9" opacity="0.7"/><line x1="10" y1="19" x2="26" y2="19" stroke="#b8a684" stroke-width="0.9" opacity="0.7"/></svg>
+                </span>
+                <span class="btn-name">KAMI - SCROLL</span>
+                <span class="btn-sub">BEATS STONE</span>
             </button>
-            <button class="move-btn" id="scissors" data-choice="scissors" aria-label="Choose scissors">
-                <span class="btn-icon">✌️</span>
-                <span class="btn-name">SCISSORS</span>
-                <span class="btn-sub">BEATS PAPER</span>
+            <button class="move-btn" id="scissors" data-choice="scissors" aria-label="Choose blade">
+                <span class="btn-kanji">刀</span>
+                <span class="btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 40 18" width="36" height="18"><g stroke="#1e1c1a" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="9" height="4" rx="0.5" fill="#1e1c1a" stroke-width="1.1"/><rect x="13" y="6.5" width="2.2" height="5" fill="#c9a86a" stroke-width="1"/><path d="M15.2 9 L36 9" stroke="#f0f0f0" stroke-width="3.2"/><path d="M15.2 9 L36 9" stroke="#1e1c1a" stroke-width="1" opacity="0.15"/><path d="M36 6.5 L38.5 9 L36 11.5" fill="none" stroke-width="1.2"/></g></svg>
+                </span>
+                <span class="btn-name">KATANA - BLADE</span>
+                <span class="btn-sub">BEATS SCROLL</span>
             </button>
         </div>
 
         <div class="actions">
-            <button id="resetBtn">↻ PLAY AGAIN</button>
+            <button id="resetBtn">NEW DUEL</button>
         </div>
 
         <div id="results" style="display:none;"></div>
     </div>
 
     <footer>
-        RPS-SHOOT @ 2026 - BUILT FOR THE ODIN PROJECT • FearThePLOTO
+        <span>RPS SAMURAI - 2026 - FOR THE ODIN PROJECT</span>
+        <span class="footer-mark">FearThePLOTO - DOJO v1</span>
     </footer>
 </body>
 </html>
