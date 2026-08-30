@@ -1,8 +1,4 @@
-/**
- * RPS Shoot - Redline Edition
- * First to 5 wins. UI-driven.
- */
-
+// RPS Samurai - game logic for first to 5 wins
 function getComputerChoice() {
     const rnd = Math.floor(Math.random() * 3);
     return rnd === 1 ? "rock" : rnd === 2 ? "paper" : "scissors";
@@ -12,7 +8,7 @@ const icons = {
     rock: "石",
     paper: "紙",
     scissors: "刀",
-    waiting: "-"
+    waiting: "-",
 };
 
 let humanScore = 0;
@@ -37,40 +33,36 @@ const winnerTitle = document.getElementById("winnerTitle");
 const winnerSub = document.getElementById("winnerSub");
 const resetBtn = document.getElementById("resetBtn");
 const buttons = document.querySelectorAll(".move-btn");
-
-// required div for displaying results (fulfills assignment spec)
 const resultsDiv = document.getElementById("results");
 
+// Updates scores and round display
 function updateScoreboard() {
     humanScoreEl.textContent = humanScore;
     computerScoreEl.textContent = computerScore;
     roundNumEl.textContent = gameOver ? "-" : round;
-
-    // also keep results div in sync (assignment requirement: running score)
     resultsDiv.textContent = `Score - You: ${humanScore} | CPU: ${computerScore}`;
 }
 
+// Shows chosen weapons and triggers reveal animation
 function setChoices(playerChoice, computerChoice) {
     playerIconEl.textContent = icons[playerChoice];
     cpuIconEl.textContent = icons[computerChoice];
     playerChoiceTextEl.textContent = playerChoice;
     cpuChoiceTextEl.textContent = computerChoice;
-
-    // pop animation
     playerPickEl.classList.remove("reveal");
     cpuPickEl.classList.remove("reveal");
-    void playerPickEl.offsetWidth; // reflow
+    void playerPickEl.offsetWidth;
     playerPickEl.classList.add("reveal");
     cpuPickEl.classList.add("reveal");
 }
 
+// Displays final winner and locks controls
 function announceWinner() {
     gameOver = true;
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach((b) => (b.disabled = true));
     resetBtn.classList.add("show");
     winnerBanner.classList.add("show");
     roundHintEl.textContent = "MATCH OVER";
-
     if (humanScore >= 5) {
         winnerTitle.textContent = "YOU WIN THE MATCH!";
         winnerSub.textContent = `FINAL ${humanScore} - ${computerScore} • YOU DOMINATED`;
@@ -84,29 +76,24 @@ function announceWinner() {
         resultEl.className = "lose";
         resultTextEl.textContent = "Don't sweat it - the CPU got lucky. Reset and run it back.";
     }
-
-    // update results div with final announcement
     const announcement = document.createElement("p");
     announcement.textContent = winnerTitle.textContent + " - " + winnerSub.textContent;
     resultsDiv.appendChild(announcement);
 }
 
+// Plays one round and updates scores
 function playRound(playerChoice) {
     if (gameOver) return;
-
     const computerChoice = getComputerChoice();
     setChoices(playerChoice, computerChoice);
-
-    let outcome; // 0 tie, 1 player, 2 cpu
+    let outcome;
     let message = "";
     let detail = "";
-
     if (playerChoice === computerChoice) {
         outcome = 0;
         message = "IT'S A TIE";
         detail = `Both threw ${playerChoice} - no points. Go again.`;
         resultEl.className = "tie";
-        // subtle shake on tie
         playerPickEl.classList.add("shake");
         cpuPickEl.classList.add("shake");
         setTimeout(() => {
@@ -130,37 +117,30 @@ function playRound(playerChoice) {
         detail = `${computerChoice} beats ${playerChoice} - point for CPU.`;
         resultEl.className = "lose";
     }
-
     resultEl.textContent = message;
     resultTextEl.textContent = detail;
     updateScoreboard();
-
-    // keep results div updated (DOM method instead of console.log per spec)
-    // we keep a simple log line for every round as well
     const line = document.createElement("div");
     line.textContent = `Round ${round}: you=${playerChoice}, cpu=${computerChoice} → ${message}`;
     resultsDiv.appendChild(line);
-    // keep only last 6 lines visible in hidden log to avoid bloat
     while (resultsDiv.children.length > 7) resultsDiv.removeChild(resultsDiv.firstChild);
-
-    // check win condition - first to 5
     if (humanScore >= 5 || computerScore >= 5) {
         announceWinner();
     } else {
         if (outcome !== 0) round++;
-        roundHintEl.textContent = outcome === 0 ? "TIE - REPLAY ROUND" : `NEXT ROUND`;
+        roundHintEl.textContent = outcome === 0 ? "TIE - REPLAY ROUND" : "NEXT ROUND";
         updateScoreboard();
     }
-
     return outcome;
 }
 
+// Resets game state and UI
 function resetGame() {
     humanScore = 0;
     computerScore = 0;
     round = 1;
     gameOver = false;
-    buttons.forEach(b => b.disabled = false);
+    buttons.forEach((b) => (b.disabled = false));
     resetBtn.classList.remove("show");
     winnerBanner.classList.remove("show");
     playerIconEl.textContent = icons.waiting;
@@ -177,16 +157,14 @@ function resetGame() {
     updateScoreboard();
 }
 
-// event listeners for the three buttons (as required)
+// Weapon button clicks
 document.getElementById("rock").addEventListener("click", () => playRound("rock"));
 document.getElementById("paper").addEventListener("click", () => playRound("paper"));
 document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
-
 resetBtn.addEventListener("click", resetGame);
 
-// also allow data-choice delegation (keeps code extensible)
-buttons.forEach(btn => {
-    // already handled above, but ensure keyboard accessibility
+// Keyboard support for weapon buttons
+buttons.forEach((btn) => {
     btn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -195,5 +173,5 @@ buttons.forEach(btn => {
     });
 });
 
-// init
+// Initialize scoreboard
 updateScoreboard();
